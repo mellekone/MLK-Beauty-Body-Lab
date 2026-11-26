@@ -1,0 +1,180 @@
+BEGIN:VCALENDAR
+PRODID:https://www.bahn.de
+VERSION:2.0
+CALSCALE:GREGORIAN
+X-LOTUS-CHARSET:UTF-8
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+LAST-MODIFIED:20231222T233358Z
+TZURL:https://www.tzurl.org/zoneinfo/Europe/Berlin
+X-LIC-LOCATION:Europe/Berlin
+X-PROLEPTIC-TZNAME:LMT
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+005328
+TZOFFSETTO:+0100
+DTSTART:18930401T000000
+END:STANDARD
+BEGIN:DAYLIGHT
+TZNAME:CEST
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19160430T230000
+RDATE:19400401T020000
+RDATE:19430329T020000
+RDATE:19460414T020000
+RDATE:19470406T030000
+RDATE:19480418T020000
+RDATE:19490410T020000
+RDATE:19800406T020000
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19161001T010000
+RDATE:19421102T030000
+RDATE:19431004T030000
+RDATE:19441002T030000
+RDATE:19451118T030000
+RDATE:19461007T030000
+END:STANDARD
+BEGIN:DAYLIGHT
+TZNAME:CEST
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19170416T020000
+RRULE:FREQ=YEARLY;UNTIL=19180415T010000Z;BYMONTH=4;BYDAY=3MO
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19170917T030000
+RRULE:FREQ=YEARLY;UNTIL=19180916T010000Z;BYMONTH=9;BYDAY=3MO
+END:STANDARD
+BEGIN:DAYLIGHT
+TZNAME:CEST
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19440403T020000
+RRULE:FREQ=YEARLY;UNTIL=19450402T010000Z;BYMONTH=4;BYDAY=1MO
+END:DAYLIGHT
+BEGIN:DAYLIGHT
+TZNAME:CEMT
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0300
+DTSTART:19450524T020000
+RDATE:19470511T030000
+END:DAYLIGHT
+BEGIN:DAYLIGHT
+TZNAME:CEST
+TZOFFSETFROM:+0300
+TZOFFSETTO:+0200
+DTSTART:19450924T030000
+RDATE:19470629T030000
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0100
+DTSTART:19460101T000000
+RDATE:19800101T000000
+END:STANDARD
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19471005T030000
+RRULE:FREQ=YEARLY;UNTIL=19491002T010000Z;BYMONTH=10;BYDAY=1SU
+END:STANDARD
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19800928T030000
+RRULE:FREQ=YEARLY;UNTIL=19950924T010000Z;BYMONTH=9;BYDAY=-1SU
+END:STANDARD
+BEGIN:DAYLIGHT
+TZNAME:CEST
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19810329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19961027T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20240405T173551Z
+UID:a50b39c1-e27f-452f-87ab-21d044edcabd@bahn.de
+SUMMARY:Bochum Hbf ➞ Wolfsburg Hbf
+CLASS:PUBLIC
+LOCATION:Bochum Hbf
+DESCRIPTION:Bochum Hbf ➞ Wolfsburg Hbf\nDatum: 20.04.2024\nKlasse: 2. Kla
+ sse\n\nBochum Hbf ➞ Wolfsburg Hbf\n[Reservierung: 8 Sitzplätze\, Wg. 21\
+ , Pl. 72-78 83]\nICE 547 (8000041)\n● ab Bochum Hbf ▷ Gleis. 5\n○ an Wol
+ fsburg Hbf ▷ Gleis. 5\n\nDauer: 2h 29min\n————\nReisen Sie entspannt und
+  ohne Ticketkontrolle. Nutzen Sie den Komfort Check-in sobald Sie Ihren 
+ Sitzplatz erreicht haben. Einfach und schnell unter www.bahn.de/jetzt-ei
+ nchecken.\n————\nAlle Angaben ohne Gewähr. Fahrplanänderungen vorbehalte
+ n. Bitte prüfen Sie kurz vor der Reise den aktuellen Fahrplan unter: www
+ .bahn.de
+DTSTART:20240420T113300
+DTEND:20240420T140200
+DTSTAMP:20240405T173551Z
+X-ALT-DESC;FMTTYPE=text/html:<html xmlns:v="urn:schemas-microsoft-com:vml
+ " xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas
+ -microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office
+ /2004/ 12/omml" xmlns="http://www.w3.org/TR/REC-html40"><head></head><bo
+ dy lang=DE><div class=WordSection1><p class=MsoNormal>Bochum Hbf ➞ Wolfs
+ burg Hbf<br>Datum: 20.04.2024<br>Klasse: 2. Klasse<br><br>Bochum Hbf ➞ W
+ olfsburg Hbf<br>[Reservierung: 8 Sitzplätze\, Wg. 21\, Pl. 72-78 83]<br>
+ ICE 547 (8000041)<br>● ab Bochum Hbf ▷ Gleis. 5<br>○ an Wolfsburg Hbf ▷ 
+ Gleis. 5<br><br>Dauer: 2h 29min<br>————<br>Reisen Sie entspannt und ohne
+  Ticketkontrolle. Nutzen Sie den Komfort Check-in sobald Sie Ihren Sitzp
+ latz erreicht haben. Einfach und schnell unter www.bahn.de/jetzt-einchec
+ ken.<br>————<br>Alle Angaben ohne Gewähr. Fahrplanänderungen vorbehalten
+ . Bitte prüfen Sie kurz vor der Reise den aktuellen Fahrplan unter: www.
+ bahn.de</p></div></body></html>
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20240405T173551Z
+UID:9557f0fb-6d7c-4a83-b56e-6c29a1101cfe@bahn.de
+SUMMARY:Wolfsburg Hbf ➞ Bochum Hbf
+CLASS:PUBLIC
+LOCATION:Wolfsburg Hbf
+DESCRIPTION:Wolfsburg Hbf ➞ Bochum Hbf\nDatum: 20.04.2024\nKlasse: 2. Kla
+ sse\n\nWolfsburg Hbf ➞ Bochum Hbf\n[Reservierung: 8 Sitzplätze\, Wg. 24\
+ , Pl. 31-38]\nICE 544 (8006552)\n● ab Wolfsburg Hbf ▷ Gleis. 1\n○ an Boc
+ hum Hbf ▷ Gleis. 3\n\nDauer: 2h 31min\n————\nReisen Sie entspannt und oh
+ ne Ticketkontrolle. Nutzen Sie den Komfort Check-in sobald Sie Ihren Sit
+ zplatz erreicht haben. Einfach und schnell unter www.bahn.de/jetzt-einch
+ ecken.\n————\nAlle Angaben ohne Gewähr. Fahrplanänderungen vorbehalten. 
+ Bitte prüfen Sie kurz vor der Reise den aktuellen Fahrplan unter: www.ba
+ hn.de
+DTSTART:20240420T175300
+DTEND:20240420T202400
+DTSTAMP:20240405T173551Z
+X-ALT-DESC;FMTTYPE=text/html:<html xmlns:v="urn:schemas-microsoft-com:vml
+ " xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas
+ -microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office
+ /2004/ 12/omml" xmlns="http://www.w3.org/TR/REC-html40"><head></head><bo
+ dy lang=DE><div class=WordSection1><p class=MsoNormal>Wolfsburg Hbf ➞ Bo
+ chum Hbf<br>Datum: 20.04.2024<br>Klasse: 2. Klasse<br><br>Wolfsburg Hbf 
+ ➞ Bochum Hbf<br>[Reservierung: 8 Sitzplätze\, Wg. 24\, Pl. 31-38]<br>ICE
+  544 (8006552)<br>● ab Wolfsburg Hbf ▷ Gleis. 1<br>○ an Bochum Hbf ▷ Gle
+ is. 3<br><br>Dauer: 2h 31min<br>————<br>Reisen Sie entspannt und ohne Ti
+ cketkontrolle. Nutzen Sie den Komfort Check-in sobald Sie Ihren Sitzplat
+ z erreicht haben. Einfach und schnell unter www.bahn.de/jetzt-einchecken
+ .<br>————<br>Alle Angaben ohne Gewähr. Fahrplanänderungen vorbehalten. B
+ itte prüfen Sie kurz vor der Reise den aktuellen Fahrplan unter: www.bah
+ n.de</p></div></body></html>
+END:VEVENT
+END:VCALENDAR
