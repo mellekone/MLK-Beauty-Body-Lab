@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#151219"><title>MLK Beauty &amp; Body Lab | V1.6 automatische Taille</title>
+<style>
+:root{color-scheme:dark;--bg:#121016;--panel:#211d26;--panel2:#2b2632;--border:#514355;--text:#fcf4fc;--muted:#c4b4c7;--pink:#ff1493;--yellow:#ffff33;--good:#7ae4b2}
+*{box-sizing:border-box}body{background:var(--bg);color:var(--text);margin:0;font:14px/1.45 -apple-system,BlinkMacSystemFont,system-ui,sans-serif}button,input{font:inherit}button{touch-action:manipulation;cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}header{padding:13px 16px;background:#19151d;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:9px}.brand{font-weight:800;font-size:16px}.brand small{display:block;font-size:11px;color:var(--muted);font-weight:500}.tag{color:#ffc1e2;font-size:11px;white-space:nowrap;border:1px solid #884c6b;border-radius:9px;padding:6px 8px}
+main{display:grid;grid-template-columns:minmax(0,1.48fr) minmax(300px,.9fr);gap:12px;max-width:1500px;margin:auto;padding:12px}.card{border:1px solid var(--border);border-radius:16px;background:var(--panel);min-width:0;overflow:hidden}.image-card{display:flex;flex-direction:column;min-height:540px}.topline,.bottomline{padding:10px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center}.topline{border-bottom:1px solid var(--border)}.bottomline{border-top:1px solid var(--border);color:var(--muted);font-size:11px}.bottomline b{color:var(--yellow)}.stage{flex:1;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 35%,#302237,#17141b);min-height:390px;padding:12px}.wrap{position:relative;max-width:100%;width:fit-content;line-height:0}.wrap canvas{display:block;max-width:100%;height:auto}.wrap #overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.blank{text-align:center;max-width:350px;padding:35px 15px;line-height:1.5;color:var(--muted)}.blank span{display:block;font-size:52px}.blank b{font-size:19px;color:var(--text);display:block;margin:9px 0}.sidebar{padding:15px;display:flex;flex-direction:column;gap:13px}.eyebrow{color:#ff9bcc;font-size:11px;font-weight:850;letter-spacing:.9px}.sidebar h1{font-size:22px;line-height:1.16;margin:6px 0}.lede,.hint{color:var(--muted);font-size:12px;line-height:1.5}.lede{margin:0}.group{background:var(--panel2);border:1px solid var(--border);border-radius:13px;padding:13px}.group h2{margin:0 0 9px;font-size:14px}.upload{display:block;position:relative;border:1px dashed #cc7eae;background:#482b42;padding:12px;min-height:48px;border-radius:9px;text-align:center;font-weight:750;overflow:hidden;cursor:pointer}.upload input{position:absolute;inset:0;opacity:0;width:100%;height:100%}.row{display:flex;gap:9px;align-items:center}.row.buttons{display:grid;grid-template-columns:1.2fr .8fr;margin-top:9px}.btn{border-radius:10px;background:#3c3341;border:1px solid #78677d;color:white;min-height:44px;padding:9px 12px;font-weight:740}.btn.primary{background:var(--pink);color:#1b0b13;border-color:var(--pink)}.btn.full{width:100%}.label{display:flex;align-items:center;justify-content:space-between;gap:9px;font-size:13px;font-weight:670}.label span{font-variant-numeric:tabular-nums;color:var(--yellow)}.range{width:100%;accent-color:var(--pink);height:36px;touch-action:pan-x}.ends{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}.status{padding:13px;border:1px solid #66516a;border-radius:12px;background:#1a161e;white-space:pre-line}.status b{display:block;margin-bottom:4px}.status small{font-size:12px;display:block;color:var(--muted);overflow-wrap:anywhere}.status.error{border-color:#cc537b}.status.ok{border-color:#397f63}.bar{height:5px;background:#4b3b4c;border-radius:10px;margin-top:10px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pink);width:15%;transition:width .2s}.toggle{accent-color:var(--pink);width:18px;height:18px}.pills{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}.pill{background:#352e3a;border:1px solid #665669;border-radius:8px;padding:7px 9px;color:#fff;font-size:12px}.pill[data-active="true"]{border-color:var(--pink);background:#582c4b}.warning{padding-left:10px;border-left:3px solid var(--pink);color:#eac5dc;font-size:11px;line-height:1.5}.hidden{display:none!important}footer{max-width:1500px;margin:0 auto;padding:0 12px 15px;font-size:11px;color:#a998ad}
+/* V1.3.1: Werkzeugsteuerung und Bild muessen beim Test gleichzeitig sichtbar sein. */
+@media(min-width:700px){
+ main{grid-template-columns:minmax(0,1.12fr) minmax(310px,1fr);align-items:start}
+ .image-card{position:sticky;top:8px;align-self:start;height:calc(100dvh - 16px);min-height:420px;max-height:900px;z-index:2}
+ .stage{min-height:0;overflow:hidden;padding:6px;flex:1}
+ .wrap{display:flex;align-items:center;justify-content:center;max-width:100%;max-height:100%;width:fit-content;height:fit-content}
+ #picture{display:block;width:auto;height:auto;max-width:100%;max-height:calc(100dvh - 130px);object-fit:contain}
+ .sidebar{padding:12px}
+}
+@media(min-width:700px) and (max-width:980px){
+ main{grid-template-columns:minmax(0,1.05fr) minmax(310px,1fr);padding:8px;gap:8px}
+ .topline,.bottomline{padding:8px 9px}
+ .sidebar h1{font-size:19px}
+ .group{padding:10px}
+}
+/* Auf schmalen Displays bleibt das Bild oben fest stehen, die Regler scrollen darunter. */
+@media(max-width:699px){
+ main{grid-template-columns:minmax(0,1fr);padding:7px;gap:8px}
+ .sidebar{padding:11px}
+ .sidebar h1{font-size:20px}
+ .image-card{min-height:260px}
+ .stage{min-height:190px;padding:5px;overflow:hidden}
+ .bottomline{flex-wrap:wrap}
+ body.has-photo .image-card{position:fixed;z-index:80;left:6px;right:6px;top:env(safe-area-inset-top,0px);height:min(40dvh,360px);min-height:0;box-shadow:0 8px 28px #000b}
+ body.has-photo main{padding-top:calc(min(40dvh,360px) + 16px)}
+ body.has-photo .stage{flex:1;min-height:0}
+ body.has-photo .wrap{display:flex;align-items:center;justify-content:center;max-width:100%;max-height:100%;width:fit-content;height:fit-content}
+ body.has-photo #picture{display:block;width:auto;height:auto;max-width:100%;max-height:calc(min(40dvh,360px) - 87px);object-fit:contain}
+ body.has-photo .topline,body.has-photo .bottomline{padding:5px 9px;font-size:11px}
+}
+@media(max-height:540px) and (min-width:700px){.image-card{min-height:280px}.stage{min-height:0}}
+
+
+/* V1.6: groessere iPhone-Vorschau und zoombare Vollbildansicht */
+.topline{flex-wrap:wrap}.topline .zoom-action{min-height:34px;font-size:12px;padding:6px 9px;background:#492c44;border-color:#ac5d8c}
+.edit-feedback{padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:#1a1720;font-size:12px;margin:0;color:var(--muted)}
+.edit-feedback.good{color:var(--good);border-color:#37745d}.edit-feedback.warn{color:#ffc3dc;border-color:#b65076}
+@media(max-width:699px){body.has-photo .image-card{height:min(46dvh,410px)}body.has-photo main{padding-top:calc(min(46dvh,410px) + 16px)}body.has-photo #picture{max-height:calc(min(46dvh,410px) - 96px)}}
+body.zoom-open{overflow:hidden}
+.zoom-dialog{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;background:#0d0b10;color:var(--text);padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+.zoom-toolbar{min-height:50px;display:flex;justify-content:space-between;align-items:center;gap:6px;padding:5px 10px;border-bottom:1px solid var(--border);background:#1b1720}
+.zoom-toolbar strong{font-size:13px}.zoom-toolbar .btn{min-height:38px;font-size:12px;padding:6px 9px}
+.zoom-viewport{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;display:flex;align-items:safe center;justify-content:safe center;touch-action:pan-x pan-y;background:#100e12}
+.zoom-inner{flex:none;margin:auto;line-height:0}.zoom-inner canvas{display:block;max-width:none;touch-action:pan-x pan-y}
+.zoom-controls{background:#1e1a22;border-top:1px solid var(--border);padding:8px 12px;display:flex;flex-direction:column;gap:5px}
+.zoom-steps{display:flex;align-items:center;justify-content:center;gap:12px}.zoom-steps .btn{min-height:38px;padding:6px 12px}.zoom-steps span{min-width:55px;text-align:center;font-variant-numeric:tabular-nums}
+.zoom-slider label{font-weight:600;font-size:12px;display:flex;justify-content:space-between}.zoom-slider .range{height:31px}
+.zoom-controls p{margin:0;font-size:11px;text-align:center;min-height:26px}
+.zoom-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.zoom-actions .btn{min-height:38px;padding:5px 10px;font-size:12px}
+@media(max-height:500px){.zoom-controls{gap:2px;padding:3px 8px}.zoom-controls p{min-height:0}.zoom-steps .btn,.zoom-actions .btn{min-height:30px}.zoom-toolbar{min-height:40px}.zoom-slider .range{height:25px}}
+</style>
+</head><body>
+<header><div class="brand">🧪 MLK Beauty &amp; Body Lab<small>Automatische Erkennung · Regler statt Maskenzeichnen</small></div><div class="tag">V1.6 · iPhone & Prüfung</div></header>
+<main>
+<section class="card image-card"><div class="topline"><b>Original / Vorschau</b><span id="fileLabel" class="hint">Kein Foto</span><button id="expandPreview" class="btn zoom-action" disabled>⛶ Großansicht</button></div><div class="stage"><div id="blank" class="blank"><span>🔬</span><b>Erst erkennen, dann verändern</b>Der Körper wird automatisch segmentiert. Kein Nachzeichnen und keine frei beweglichen Lupen.</div><div id="wrap" class="wrap hidden"><canvas id="picture" aria-label="Vorschau"></canvas><canvas id="overlay"></canvas></div></div><div class="bottomline"><span id="imageNote">Das Original bleibt unverändert.</span><b id="imageState">Bereit</b></div></section>
+<section class="card"><div class="sidebar"><div><div class="eyebrow">AUTOMATISCH · TAILLENTEST</div><h1>Taille schmaler oder breiter</h1><p class="lede">Foto laden, automatisch erkennen lassen, Taillenbreite einstellen. Arme und Hände bleiben geschützt. Es sind keine manuell gesetzten Zonen nötig.</p></div>
+<div class="group"><h2>1 · Foto und Erkennung</h2><label class="upload">＋ Foto aus Fotos / Dateien laden<input id="file" type="file" accept="image/*"></label><div class="row buttons"><button id="run" class="btn primary" disabled>Automatisch erkennen</button><button id="clear" class="btn" disabled>Entfernen</button></div><p class="hint">Das Modell wird beim ersten Einsatz aus dem Internet geladen. Das Foto selbst wird lokal im Browser verarbeitet.</p></div>
+<div id="status" class="status"><b id="statusTitle">Bereit</b><small id="statusText">Bitte zuerst ein Foto auswählen.</small><div id="progress" class="bar hidden"><i id="fill"></i></div></div>
+<div id="tools" class="hidden">
+<div class="group"><h2>2 · Taillenform testen</h2><div class="label hidden"><span>Schutzmodus</span><span id="safetyState">Streng</span></div><div class="row hidden" style="margin:7px 0 10px"><button id="safeStrict" class="pill" data-active="true" aria-pressed="true" style="flex:1">🛡 Streng</button><button id="safeNormal" class="pill" data-active="false" aria-pressed="false" style="flex:1">Normal</button></div><div class="label"><label for="strength">Taillenbreite</label><span id="value">0 %</span></div><input type="range" class="range" id="strength" min="-15" max="15" value="0" step="1"><div class="ends"><span>Schmaler</span><span>Original</span><span>Breiter</span></div><div class="label" style="margin-top:11px"><label for="height">Wirkhöhe</label><span id="heightValue">Normal</span></div><input type="range" class="range" id="height" min="6" max="20" step="1" value="12"><p class="hint">Die Zone erkennt die App selbst. Die Regler wirken nur, wenn sie die Nachbarbereiche sicher schützen kann.</p><div class="row" style="margin-top:10px"><button id="reset" class="btn" style="flex:1">Zurücksetzen</button><button id="compare" class="btn" style="flex:1">Original zeigen</button></div></div>
+<details class="group" id="diagnostics"><summary style="cursor:pointer;font-weight:700">Technische Diagnose (optional)</summary><div style="margin-top:10px"><h2>Schutz prüfen</h2><div class="pills"><button class="pill" id="modeEdit" data-active="true">Bearbeitung</button><button class="pill" id="modeTorso" data-active="false">Rumpfmaske</button><button class="pill" id="modeProtect" data-active="false">Schutzzonen</button><button class="pill" id="modeActive" data-active="false">Aktive Zone</button></div><div class="row"><input type="checkbox" id="showGuides" class="toggle"><label for="showGuides" class="hint">Konturhilfen anzeigen</label></div><p id="diag" class="hint">Die Maskenqualität wird nach der Erkennung bewertet.</p><p id="zoneInfo" class="hint" style="margin-top:7px">Aktive Zone: grün = bearbeitbar, rot = gesperrt. Die einzelnen Seiten werden getrennt geprüft.</p></div></details><p id="editFeedback" class="edit-feedback" aria-live="polite">Noch kein Foto bearbeitet.</p><button id="export" class="btn full" disabled>Bearbeitung als PNG speichern</button>
+</div>
+<p class="warning"><b>Bewusste Grenze:</b> Dies bleibt ein experimenteller Konturtest. Beim Verschmälern muss der verdeckte Hintergrund geschätzt werden. Bei Fliesen, Tattoos und überlappenden Körperteilen können weiterhin sichtbare Fehler auftreten. Ein automatischer Sicherheitsstopp ist keine fertige Retusche.</p>
+</div></section></main>
+<section id="zoomDialog" class="zoom-dialog hidden" role="dialog" aria-modal="true" aria-label="Großansicht zur Bildprüfung">
+ <div class="zoom-toolbar"><button id="zoomClose" class="btn">✕ Schließen</button><strong>Bildprüfung</strong><button id="zoomCompare" class="btn">Original</button></div>
+ <div class="zoom-viewport" id="zoomViewport"><div class="zoom-inner"><canvas id="zoomCanvas" aria-label="Vergrößerte Bildansicht"></canvas></div></div>
+ <div class="zoom-controls">
+  <div class="zoom-steps"><button id="zoomMinus" class="btn">−</button><span id="zoomLevel">100 %</span><button id="zoomPlus" class="btn">＋</button><button id="zoomFit" class="btn">Einpassen</button></div>
+  <div class="zoom-slider"><label for="zoomStrength">Taillenbreite <span id="zoomStrengthValue">0 %</span></label><input id="zoomStrength" class="range" type="range" min="-15" max="15" value="0" step="1" disabled></div>
+  <p id="zoomFeedback" class="hint" aria-live="polite">Zuerst Foto laden und automatisch erkennen.</p>
+  <div class="zoom-actions"><button id="zoomReset" class="btn" disabled>Zurücksetzen</button><button id="zoomExport" class="btn primary" disabled>PNG speichern</button></div>
+ </div>
+</section>
+<footer>V1.6 testet einen automatischen Taillenregler. Kein Upload deiner Fotos zu GitHub. Forschungsmodell kann Lizenzbeschränkungen haben.</footer>
+<script type="module">
+'use strict';
+const $=id=>document.getElementById(id);
+const ui={file:$('file'),run:$('run'),clear:$('clear'),status:$('status'),statusTitle:$('statusTitle'),statusText:$('statusText'),progress:$('progress'),fill:$('fill'),picture:$('picture'),overlay:$('overlay'),wrap:$('wrap'),blank:$('blank'),fileLabel:$('fileLabel'),imageState:$('imageState'),imageNote:$('imageNote'),tools:$('tools'),strength:$('strength'),value:$('value'),height:$('height'),heightValue:$('heightValue'),reset:$('reset'),compare:$('compare'),modeEdit:$('modeEdit'),modeTorso:$('modeTorso'),modeProtect:$('modeProtect'),modeActive:$('modeActive'),safeStrict:$('safeStrict'),safeNormal:$('safeNormal'),safetyState:$('safetyState'),zoneInfo:$('zoneInfo'),showGuides:$('showGuides'),diag:$('diag'),export:$('export'),editFeedback:$('editFeedback'),expandPreview:$('expandPreview'),zoomDialog:$('zoomDialog'),zoomCanvas:$('zoomCanvas'),zoomViewport:$('zoomViewport'),zoomClose:$('zoomClose'),zoomCompare:$('zoomCompare'),zoomMinus:$('zoomMinus'),zoomPlus:$('zoomPlus'),zoomFit:$('zoomFit'),zoomLevel:$('zoomLevel'),zoomStrength:$('zoomStrength'),zoomStrengthValue:$('zoomStrengthValue'),zoomFeedback:$('zoomFeedback'),zoomReset:$('zoomReset'),zoomExport:$('zoomExport')};
+const groupOrder=['all','torso','arms','hands','legs','feet','hair','face','clothes','other'];
+const mapLabel=name=>{const s=String(name||'').toLowerCase().replace(/[_-]/g,' ').trim();if(s.includes('torso'))return 'torso';if(s.includes('arm'))return 'arms';if(s.includes('hand'))return 'hands';if(s.includes('leg'))return 'legs';if(s.includes('feet')||s==='foot')return 'feet';if(s.includes('hair'))return 'hair';if(s.includes('face'))return 'face';if(['top','dress','skirt','pants','belt'].includes(s))return 'clothes';if(['hat','bag','scarf','glasses','jewelry'].includes(s))return 'other';return null;};
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+let srcCanvas=null,srcPixels=null,picW=0,picH=0,segW=0,segH=0,classMap=null,torsoMask=null,guardMask=null,rowL=null,rowR=null,waist=null,working=false,model=null,processor=null,epoch=0,objectUrl=null,fileName='Bild',viewMode='edit',compare=false,queued=false,safetyMode='strict',localPlan=null,lastChanged=0,zoomFactor=1,zoomOpen=false,zoomFitScale=1;
+function status(t,m,kind='',pct=0){ui.statusTitle.textContent=t;ui.statusText.textContent=m;ui.status.className='status '+kind;ui.progress.classList.toggle('hidden',pct===0);ui.fill.style.width=pct+'%';}
+function clear(){hideZoom();lastChanged=0;document.body.classList.remove('has-photo');epoch++;working=false;srcCanvas=null;srcPixels=null;picW=picH=segW=segH=0;classMap=torsoMask=guardMask=rowL=rowR=waist=localPlan=null;compare=false;viewMode='edit';safetyMode='strict';syncSafety();ui.picture.width=ui.picture.height=ui.overlay.width=ui.overlay.height=0;ui.wrap.classList.add('hidden');ui.blank.classList.remove('hidden');ui.run.disabled=ui.clear.disabled=ui.export.disabled=ui.expandPreview.disabled=true;ui.editFeedback.textContent='Noch kein Foto bearbeitet.';ui.editFeedback.className='edit-feedback';ui.tools.classList.add('hidden');ui.fileLabel.textContent='Kein Foto';ui.imageState.textContent='Bereit';ui.imageNote.textContent='Das Original bleibt unverändert.';ui.strength.value=0;ui.height.value=12;ui.compare.textContent='Original zeigen';ui.file.value='';status('Bereit','Bitte zuerst ein Foto auswählen.');if(objectUrl){URL.revokeObjectURL(objectUrl);objectUrl=null;}}
+ui.clear.addEventListener('click',clear);
+ui.file.addEventListener('change',()=>{const f=ui.file.files?.[0];if(!f)return;clear();const e=epoch;fileName=f.name||'Foto';objectUrl=URL.createObjectURL(f);const img=new Image();img.onload=()=>{if(e!==epoch)return;const scale=Math.min(1,1300/Math.max(img.naturalWidth,img.naturalHeight));picW=Math.max(1,Math.round(scale*img.naturalWidth));picH=Math.max(1,Math.round(scale*img.naturalHeight));srcCanvas=document.createElement('canvas');srcCanvas.width=picW;srcCanvas.height=picH;srcCanvas.getContext('2d').drawImage(img,0,0,picW,picH);srcPixels=srcCanvas.getContext('2d',{willReadFrequently:true}).getImageData(0,0,picW,picH);ui.picture.width=ui.overlay.width=picW;ui.picture.height=ui.overlay.height=picH;ui.wrap.classList.remove('hidden');ui.blank.classList.add('hidden');document.body.classList.add('has-photo');ui.fileLabel.textContent=fileName.slice(0,28);ui.run.disabled=false;ui.clear.disabled=false;ui.expandPreview.disabled=false;status('Foto bereit',`Arbeitsauflösung: ${picW} × ${picH} px. Jetzt automatisch erkennen.`,'ok');queueDraw();};img.onerror=()=>status('Foto nicht lesbar','Bitte JPG oder PNG verwenden.','error');img.src=objectUrl;});
+
+// FASHN SegFormer V1.1.1 output: argmax over bilinearly interpolated logits.
+function parseLogits(logits,id2label){
+ if(!logits?.data||!Array.isArray(logits.dims)||logits.dims.length!==4)throw Error('Modell lieferte keine gültigen vierdimensionalen Logits.');
+ const [batch,classes,mh,mw]=logits.dims,d=logits.data,plane=mw*mh;
+ if(batch!==1||classes<2||classes>64||mw<4||mh<4||d.length<classes*plane)throw Error('Ungültige Form des Modelloutputs.');
+ const fallback=['background','face','hair','top','dress','skirt','pants','belt','bag','hat','scarf','glasses','arms','hands','legs','feet','torso','jewelry'];
+ const lut=Array.from({length:classes},(_,i)=>{const name=id2label?.[i]??id2label?.[String(i)]??fallback[i];const g=mapLabel(name);return g===null?255:groupOrder.indexOf(g);});
+ const z=Math.min(1,768/Math.max(picW,picH));segW=Math.max(1,Math.round(picW*z));segH=Math.max(1,Math.round(picH*z));classMap=new Uint8Array(segW*segH).fill(255);
+ const xmap=Array.from({length:segW},(_,x)=>{const v=clamp((x+.5)*mw/segW-.5,0,mw-1);const x0=Math.floor(v);return [x0,Math.min(mw-1,x0+1),v-x0]});
+ let count=0;
+ for(let y=0;y<segH;y++){
+  const fy=clamp((y+.5)*mh/segH-.5,0,mh-1),y0=Math.floor(fy),y1=Math.min(mh-1,y0+1),dy=fy-y0;
+  for(let x=0;x<segW;x++){
+   const [x0,x1,dx]=xmap[x],a=y0*mw+x0,b=y0*mw+x1,c=y1*mw+x0,e=y1*mw+x1;
+   let best=-Infinity,k=0;for(let ch=0;ch<classes;ch++){const p=ch*plane;const t=d[p+a]*(1-dx)+d[p+b]*dx,bt=d[p+c]*(1-dx)+d[p+e]*dx;const score=t*(1-dy)+bt*dy;if(score>best){best=score;k=ch;}}
+   const label=lut[k];classMap[y*segW+x]=label;if(label!==255)count++;
+  }
+ }
+ if(count<segW*segH*.015)throw Error('Zu wenige Körperpixel erkannt.');
+}
+
+// Majority filter over the torso label; never add pixels belonging to protected classes.
+function neighborhoodMajority(binary,windowSize,threshold){
+ const w=segW,h=segH,integral=new Int32Array((w+1)*(h+1));
+ for(let y=1;y<=h;y++){let sum=0;for(let x=1;x<=w;x++){sum+=binary[(y-1)*w+x-1];integral[y*(w+1)+x]=integral[(y-1)*(w+1)+x]+sum;}}
+ const out=new Uint8Array(w*h),r=Math.floor(windowSize/2);
+ for(let y=0;y<h;y++){const ya=Math.max(0,y-r),yb=Math.min(h,y+r+1);
+ for(let x=0;x<w;x++){const xa=Math.max(0,x-r),xb=Math.min(w,x+r+1);const n=integral[yb*(w+1)+xb]-integral[ya*(w+1)+xb]-integral[yb*(w+1)+xa]+integral[ya*(w+1)+xa];out[y*w+x]=(n>=((xb-xa)*(yb-ya)*threshold))?1:0;}}
+ return out;
+}
+function maxComponent(mask){
+ const n=mask.length,seen=new Uint8Array(n),queue=new Int32Array(n),w=segW;let best=[],total=0;
+ for(let seed=0;seed<n;seed++){if(!mask[seed]||seen[seed])continue;let head=0,tail=1;queue[0]=seed;seen[seed]=1;
+ while(head<tail){const k=queue[head++],x=k%w;const adjacent=[x>0?k-1:-1,x<w-1?k+1:-1,k>=w?k-w:-1,k<n-w?k+w:-1];for(const z of adjacent){if(z>=0&&mask[z]&&!seen[z]){seen[z]=1;queue[tail++]=z;}}}
+ if(tail>best.length){best=Array.from(queue.subarray(0,tail));total=tail;}
+ }
+ const component=new Uint8Array(n);for(const k of best)component[k]=1;return{component,total};
+}
+function median(values){const v=values.slice().sort((a,b)=>a-b);return v[Math.floor(v.length/2)];}
+function prepareMasks(){
+ const n=segW*segH;
+ // Isolated accidental arm/leg classifications are removed from the protection map,
+ // but continuous/large limb regions remain locked.
+ const rawProtect=new Uint8Array(n),rawTorso=new Uint8Array(n);
+ for(let i=0;i<n;i++){const k=classMap[i];rawTorso[i]=(k===1||k===8)?1:0;rawProtect[i]=(k===2||k===3||k===4||k===5)?1:0;}
+ const smoothed=neighborhoodMajority(neighborhoodMajority(rawTorso,11,.35),11,.42);
+ // Locked pixels are never converted to torso unless they are tiny isolated errors.
+ const groups=new Uint8Array(n),seen=new Uint8Array(n),queue=new Int32Array(n);const w=segW,h=segH;
+ for(let seed=0;seed<n;seed++){
+  if(!rawProtect[seed]||seen[seed])continue;
+  const label=classMap[seed];let head=0,tail=1;queue[0]=seed;seen[seed]=1;
+  while(head<tail){const k=queue[head++],x=k%w;const ns=[x>0?k-1:-1,x<w-1?k+1:-1,k>=w?k-w:-1,k<n-w?k+w:-1];for(const t of ns){if(t>=0&&!seen[t]&&classMap[t]===label){seen[t]=1;queue[tail++]=t;}}}
+  const floor=Math.max(50,Math.round(n*.00065));
+  // Ignore small limb-coloured islands surrounded by confident torso pixels.
+  // A true overlapping limb normally continues outside the torso, or has enough area to protect.
+  let exterior=0;for(let a=0;a<tail;a++)if(!smoothed[queue[a]])exterior++;
+  const anchored=exterior/Math.max(1,tail)>.18;
+  const significant=tail>=Math.max(110,Math.round(n*.003));
+  if(tail>=floor&&(anchored||significant)){for(let a=0;a<tail;a++)groups[queue[a]]=1;}
+ }
+ // Dilate protection by 1-2 pixels to preserve boundaries.
+ const p=neighborhoodMajority(groups,3,.04);
+ guardMask=p;
+ for(let i=0;i<n;i++){if(guardMask[i])smoothed[i]=0;}
+ const {component,total}=maxComponent(smoothed);
+ if(total<n*.009)throw Error('Der Rumpf wurde nicht als zusammenhängender Bereich erkannt. Keine Verformung möglich.');
+ torsoMask=component;
+ // Automatic row contours: use the dominant torso component, median then smooth.
+ let rawL=new Array(h).fill(null),rawR=new Array(h).fill(null);
+ for(let y=0;y<h;y++){let first=-1,last=-1,count=0;for(let x=0;x<w;x++)if(component[y*w+x]){if(first<0)first=x;last=x;count++;}if(first>=0&&count>=Math.max(5,w*.025)){rawL[y]=first;rawR[y]=last;}}
+ const t=[],b=[];for(let y=0;y<h;y++)if(rawL[y]!==null){t.push(y);b.push(y);}if(t.length<35)throw Error('Rumpfkontur ist zu kurz oder unvollständig.');
+ const top=t[0],bottom=b[b.length-1],height=bottom-top;
+ if(height<Math.max(35,h*.09))throw Error('Rumpf zu klein für eine kontrollierte Taillenänderung.');
+ rowL=new Float32Array(h).fill(NaN);rowR=new Float32Array(h).fill(NaN);
+ const leftMed=new Float32Array(h).fill(NaN),rightMed=new Float32Array(h).fill(NaN);
+ for(let y=top;y<=bottom;y++){
+  const ls=[],rs=[];for(let k=Math.max(top,y-7);k<=Math.min(bottom,y+7);k++){if(rawL[k]!=null){ls.push(rawL[k]);rs.push(rawR[k]);}}
+  if(ls.length>=5){leftMed[y]=median(ls);rightMed[y]=median(rs);}
+ }
+ for(let y=top;y<=bottom;y++){
+  let a=0,c=0,d=0;for(let dy=-8;dy<=8;dy++){const k=y+dy;if(k<top||k>bottom||!Number.isFinite(leftMed[k]))continue;const weight=Math.exp(-dy*dy/36);a+=leftMed[k]*weight;c+=rightMed[k]*weight;d+=weight;}
+  if(d>2){rowL[y]=a/d;rowR[y]=c/d;}
+ }
+ // Recover small interior islands caused by tattoos or bikini labeling. Real, connected limbs remain guarded.
+ for(let y=top;y<=bottom;y++){
+  if(!Number.isFinite(rowL[y])||!Number.isFinite(rowR[y]))continue;
+  const L=Math.max(0,Math.ceil(rowL[y])),R=Math.min(w-1,Math.floor(rowR[y]));
+  for(let x=L;x<=R;x++){const i=y*w+x;if(!guardMask[i])torsoMask[i]=1;}
+ }
+ // The waist is typically in the lower middle of the torso; avoid neck and hip seams.
+ let best=-Infinity,wy=-1;
+ for(let y=Math.round(top+height*.43);y<=Math.round(top+height*.78);y++){
+  if(!Number.isFinite(rowL[y]))continue;const width=rowR[y]-rowL[y];if(width<w*.08)continue;
+  const centerBias=Math.abs((y-top)/height-.61),score=-width/w-centerBias*.12;
+  if(score>best){best=score;wy=y;}
+ }
+ if(wy<0)throw Error('Keine sichere Taillenhöhe erkannt.');
+ const ww=rowR[wy]-rowL[wy];if(ww<Math.max(24,w*.09)||ww>w*.73)throw Error('Die Taillenkontur ist unplausibel.');
+ waist={y:wy,top,bottom,height,width:ww,center:(rowL[wy]+rowR[wy])/2};
+ // Global proximity is deliberately NOT an error in V1.3. A hand near the hip
+ // may be irrelevant if the actual deformation corridor never touches it.
+ return {pixels:total,torsoHeight:Math.round(height),waistWidth:Math.round(ww)};
+}
+
+function maskedAt(mask,x,y){if(!mask)return false;const xx=clamp(Math.floor(x*segW/picW),0,segW-1),yy=clamp(Math.floor(y*segH/picH),0,segH-1);return mask[yy*segW+xx]===1;}
+function contourAtImageY(y){if(!waist)return null;const sy=clamp(Math.round(y*segH/picH),0,segH-1);if(!Number.isFinite(rowL[sy]))return null;return{L:rowL[sy]*picW/segW,R:rowR[sy]*picW/segW,sy};}
+function drawOriginal(){if(!srcPixels)return;ui.picture.getContext('2d',{willReadFrequently:true}).putImageData(srcPixels,0,0);}
+function bodySafe(x,y){return !maskedAt(guardMask,x,y);}
+function sampleRGB(src,out,pix,x,y){const ix=clamp(Math.round(x),0,picW-1),iy=clamp(Math.round(y),0,picH-1),p=(iy*picW+ix)*4;out[pix]=src[p];out[pix+1]=src[p+1];out[pix+2]=src[p+2];out[pix+3]=255;}
+// Only assess the pixels through which the requested edge would actually travel.
+// All coordinates here are in the *segmentation* image, NOT full-image pixels.
+function evaluateLocal(){
+ if(!waist||!guardMask||!torsoMask)return null;
+ const s=Number(ui.strength.value),h=Number(ui.height.value),strict=safetyMode==='strict';
+ const radius=Math.max(1,waist.height*h/100);
+ const minY=Math.max(0,Math.floor(waist.y-radius)),maxY=Math.min(segH-1,Math.ceil(waist.y+radius));
+ const plan={left:new Float32Array(segH),right:new Float32Array(segH),eligible:0,blocked:0,missed:0,edited:0,interiorBad:0,rate:0,allowed:false,strict,reason:'',maxBlockedRun:0,usableLeft:0,usableRight:0,partial:false};
+ const edgeMargin=strict?2:1,foreignLimit=strict?.045:.09;
+ const blockL=new Uint8Array(segH),blockR=new Uint8Array(segH);
+ for(let y=minY;y<=maxY;y++){
+  const q=Math.abs((y-waist.y)/radius);if(q>=1)continue;
+  const fade=(1+Math.cos(Math.PI*q))/2;if(fade<.04)continue;
+  if(!Number.isFinite(rowL[y])||!Number.isFinite(rowR[y])){plan.missed+=2;continue;}
+  const L=rowL[y],R=rowR[y],width=R-L;
+  if(width<segW*.055){plan.missed+=2;continue;}
+  const center=(L+R)*.5,shift=width*s/200*fade;
+  for(const side of ['left','right']){
+   plan.eligible++;
+   const old=side==='left'?L:R,newEdge=side==='left'?L-shift:R+shift;
+   const lo=Math.max(0,Math.floor(Math.min(old,newEdge)-edgeMargin)),hi=Math.min(segW-1,Math.ceil(Math.max(old,newEdge)+edgeMargin));
+   let touches=0;
+   for(let x=lo;x<=hi;x++)if(guardMask[y*segW+x])touches++;
+   const midA=side==='left'?L+width*.08:center,midB=side==='left'?center:R-width*.08;
+   let core=0,foreign=0;
+   for(let x=Math.ceil(midA);x<=Math.floor(midB);x++){core++;if(guardMask[y*segW+x])foreign++;}
+   const anomaly=core?foreign/core:1;
+   // Any *real* protected edge pixel blocks its own row/side. Never override it
+   // merely to meet an overall percentage for the photograph.
+   const unsafe=touches>0||anomaly>foreignLimit;
+   if(unsafe){(side==='left'?blockL:blockR)[y]=1;plan.blocked++;if(anomaly>foreignLimit)plan.interiorBad++;}
+   else (side==='left'?plan.left:plan.right)[y]=1;
+  }
+ }
+ if(plan.eligible<12){plan.reason='Zu wenige auswertbare Konturzeilen';return plan;}
+ // Only keep continuous safe stretches near the waist itself. Separate left/right
+ // evaluation means an irrelevant protected area on one side does not suppress
+ // an actually safe edit on the other side.
+ const minRun=Math.max(9,Math.round(radius*.20));
+ function selectSafeRuns(a){
+  const runs=[];let start=-1;
+  for(let y=minY;y<=maxY+1;y++){
+   const on=y<=maxY&&a[y]>0;
+   if(on&&start<0)start=y;
+   if(!on&&start>=0){runs.push([start,y-1]);start=-1;}
+  }
+  // The edit needs an uninterrupted band close to the automatic waist level.
+  const near=runs.filter(([lo,hi])=>hi-lo+1>=minRun && lo<=waist.y+radius*.34 && hi>=waist.y-radius*.34);
+  near.sort((a,b)=>(b[1]-b[0])-(a[1]-a[0]));
+  const chosen=near[0];
+  for(let y=minY;y<=maxY;y++)if(!chosen||y<chosen[0]||y>chosen[1])a[y]=0;
+  if(!chosen)return 0;
+  // Smoothly fade edited rows into untouched rows; do not bridge protected rows.
+  const feather=Math.min(8,Math.max(3,Math.round(radius*.13)));
+  for(let y=chosen[0];y<=chosen[1];y++){
+   const distance=Math.min(y-chosen[0],chosen[1]-y);
+   a[y]=Math.min(1,(distance+1)/(feather+1));
+  }
+  return chosen[1]-chosen[0]+1;
+ }
+ plan.usableLeft=selectSafeRuns(plan.left);
+ plan.usableRight=selectSafeRuns(plan.right);
+ for(let y=minY;y<=maxY;y++)for(const a of [plan.left,plan.right])if(a[y]>.15)plan.edited++;
+ for(const b of [blockL,blockR]){let streak=0;for(let y=minY;y<=maxY;y++){streak=b[y]?streak+1:0;plan.maxBlockedRun=Math.max(plan.maxBlockedRun,streak);}}
+ plan.rate=plan.eligible?plan.edited/plan.eligible:0;
+ // Previous releases required nearly all rows on BOTH sides to be safe. That
+ // made a good waist uneditable when a separate arm contained a mask error.
+ plan.allowed=plan.usableLeft>=minRun||plan.usableRight>=minRun;
+ plan.partial=plan.allowed&&(plan.rate<.8||!plan.usableLeft||!plan.usableRight);
+ plan.reason=plan.allowed?(plan.partial?'Nur sichere Taillenabschnitte bearbeitbar':'Beide Taillenseiten sicher'):'Keine ausreichend zusammenhängende sichere Taillenkontur';
+ return plan;
+}
+function updateSafety(){
+ if(!waist){localPlan=null;return;}
+ localPlan=evaluateLocal();const p=localPlan;if(!p)return;
+ ui.strength.disabled=false;
+ ui.export.disabled=true; // Only queueDraw can enable export after real pixel differences.
+ ui.safetyState.textContent=safetyMode==='strict'?'Streng':'Normal';
+ const percent=Math.round(p.rate*100);
+ ui.diag.textContent=`Automatische Prüfung: ${percent} % der Teilbereiche bearbeitbar. Links: ${p.usableLeft} sichere Zeilen, rechts: ${p.usableRight}. ${p.reason}.`; 
+ ui.zoneInfo.textContent=p.allowed?(p.partial?'Die Bearbeitung wird automatisch auf sichere, zusammenhängende Abschnitte begrenzt. Geschützte Körperteile bleiben unverändert.':'Die automatisch erkannte Taille ist auf beiden Seiten bearbeitbar.'):'Es gibt keinen zusammenhängenden sicheren Taillenabschnitt. Kein ungeschützter Eingriff.';
+ ui.imageState.textContent=Number(ui.strength.value)===0?'Bereit':p.allowed?(p.partial?'Teilweise frei':'Freigegeben'):'Sicherheitsstopp';
+}
+function renderWaist(){
+ const s=Number(ui.strength.value),h=Number(ui.height.value),ctx=ui.picture.getContext('2d',{willReadFrequently:true});
+ if(compare||viewMode!=='edit'){drawOriginal();return;}
+ if(!waist||!s||!localPlan?.allowed){lastChanged=0;drawOriginal();return;}
+ const dest=new Uint8ClampedArray(srcPixels.data),src=srcPixels.data;
+ const cy=waist.y*picH/segH,radius=waist.height*h/100*picH/segH;
+ for(let y=Math.max(0,Math.floor(cy-radius));y<=Math.min(picH-1,Math.ceil(cy+radius));y++){
+  const q=Math.abs((y-cy)/(radius||1));if(q>=1)continue;
+  const fade=(1+Math.cos(Math.PI*q))/2;if(fade<.002)continue;
+  const row=contourAtImageY(y);if(!row)continue;
+  const {L,R,sy}=row,width=R-L,center=(L+R)/2;
+  if(width<picW*.055)continue;
+  // Each side is mapped only within its own half, preventing one bad side from
+  // disturbing the other half of the abdomen.
+  for(const side of ['left','right']){
+   const weight=(side==='left'?localPlan.left:localPlan.right)[sy];if(weight<=0)continue;
+   const shift=width*s/200*fade*weight;
+   const nL=side==='left'?L-shift:L;
+   const nR=side==='right'?R+shift:R;
+   const start=side==='left'?Math.max(0,Math.floor(Math.min(L,nL)-1)):Math.max(0,Math.floor(center));
+   const stop=side==='right'?Math.min(picW-1,Math.ceil(Math.max(R,nR)+1)):Math.min(picW-1,Math.ceil(center));
+   for(let x=start;x<=stop;x++){
+    const idx=(y*picW+x)*4;
+    if(!bodySafe(x,y))continue;
+    const wasBody=maskedAt(torsoMask,x,y)&&x>=L&&x<=R;
+    const willBody=side==='left'?(x>=nL&&x<=center):(x>=center&&x<=nR);
+    if(willBody){
+     const fromX=side==='left'?L+(x-nL)*(center-L)/(center-nL||1):center+(x-center)*(R-center)/(nR-center||1);
+     if(!bodySafe(fromX,y)||!bodySafe(fromX+1.5,y)||!maskedAt(torsoMask,fromX,y))continue;
+     const ix=clamp(Math.floor(fromX),0,picW-2),t=fromX-ix,a=(y*picW+ix)*4,b=a+4;
+     const edgeDist=side==='left'?(x-nL):(nR-x);const alpha=clamp(edgeDist/2,0,1);
+     for(let k=0;k<3;k++){const value=src[a+k]*(1-t)+src[b+k]*t;dest[idx+k]=dest[idx+k]*(1-alpha)+value*alpha;}
+     dest[idx+3]=255;
+    }else if(wasBody&&s<0){
+     // Approximate background fill from verified neighbouring background; no inpainting.
+     const boundary=side==='left'?L:R,dir=side==='left'?-1:1;
+     // Copy a gradual strip of known exterior background; no single-colour streaks.
+     const exposed=Math.max(0, side==='left'? nL-L : R-nR);
+     let bx=Math.round(boundary+dir*(2+Math.max(0,exposed-(Math.abs(x-boundary)))));
+     let found=false;
+     for(let trial=0;trial<Math.min(50,picW*.07);trial++){
+      const xx=bx+dir*trial;
+      if(xx<0||xx>=picW)break;
+      if(!maskedAt(guardMask,xx,y)&&!maskedAt(torsoMask,xx,y)){bx=xx;found=true;break;}
+     }
+     if(!found)continue;
+     const target=(y*picW+bx)*4;
+     for(let k=0;k<3;k++)dest[idx+k]=src[target+k];dest[idx+3]=255;
+    }
+   }
+  }
+ }
+ let changed=0;
+ for(let i=0;i<dest.length;i+=4){if(dest[i]!==src[i]||dest[i+1]!==src[i+1]||dest[i+2]!==src[i+2]||dest[i+3]!==src[i+3])changed++;}
+ lastChanged=changed;
+ ctx.putImageData(new ImageData(dest,picW,picH),0,0);
+}
+function drawOverlays(){
+ const c=ui.overlay,ctx=c.getContext('2d');ctx.clearRect(0,0,picW,picH);if(!waist)return;
+ if(viewMode!=='edit'){
+  if(viewMode==='active'){
+   if(!localPlan)return;const a=document.createElement('canvas');a.width=segW;a.height=segH;const ax=a.getContext('2d'),id=ax.createImageData(segW,segH);
+   const radius=waist.height*Number(ui.height.value)/100;
+   for(let y=Math.max(0,Math.floor(waist.y-radius));y<=Math.min(segH-1,Math.ceil(waist.y+radius));y++){
+    const q=Math.abs((y-waist.y)/(radius||1));if(q>=1||!Number.isFinite(rowL[y]))continue;
+    const L=Math.max(0,Math.round(rowL[y])),R=Math.min(segW-1,Math.round(rowR[y])),mid=Math.round((L+R)/2);
+    for(let x=L;x<=R;x++){const side=x<mid?'left':'right',safe=(side==='left'?localPlan.left[y]:localPlan.right[y])>.15&&!guardMask[y*segW+x];
+     const j=(y*segW+x)*4;id.data[j]=safe?38:240;id.data[j+1]=safe?235:75;id.data[j+2]=safe?136:88;id.data[j+3]=125;
+    }
+   }ax.putImageData(id,0,0);ctx.imageSmoothingEnabled=false;ctx.drawImage(a,0,0,picW,picH);return;
+  }
+  const m=viewMode==='torso'?torsoMask:guardMask,col=viewMode==='torso'?[255,20,147]:[255,255,51],mw=segW,mh=segH;
+  const a=document.createElement('canvas');a.width=mw;a.height=mh;const ax=a.getContext('2d'),id=ax.createImageData(mw,mh);
+  for(let i=0;i<m.length;i++){if(!m[i])continue;const j=i*4;id.data[j]=col[0];id.data[j+1]=col[1];id.data[j+2]=col[2];id.data[j+3]=110;}
+  ax.putImageData(id,0,0);ctx.imageSmoothingEnabled=false;ctx.drawImage(a,0,0,picW,picH);return;
+ }
+ if(!ui.showGuides.checked||compare)return;
+ const cy=waist.y*picH/segH,radius=waist.height*Number(ui.height.value)/100*picH/segH,s=Number(ui.strength.value);
+ ctx.lineWidth=Math.max(2,picW/350);ctx.strokeStyle='rgba(255,255,51,.85)';ctx.setLineDash([6,5]);ctx.beginPath();for(let y=Math.max(0,Math.floor(cy-radius));y<=Math.min(picH-1,Math.ceil(cy+radius));y+=2){const p=contourAtImageY(y);if(!p)continue;if(y===Math.max(0,Math.floor(cy-radius)))ctx.moveTo(p.L,y);else ctx.lineTo(p.L,y);}ctx.stroke();ctx.beginPath();for(let y=Math.max(0,Math.floor(cy-radius));y<=Math.min(picH-1,Math.ceil(cy+radius));y+=2){const p=contourAtImageY(y);if(!p)continue;if(y===Math.max(0,Math.floor(cy-radius)))ctx.moveTo(p.R,y);else ctx.lineTo(p.R,y);}ctx.stroke();ctx.setLineDash([]);
+ ctx.lineWidth=Math.max(2,picW/325);ctx.strokeStyle='#ff1493';for(const side of ['left','right']){ctx.beginPath();let has=false;for(let y=Math.max(0,Math.floor(cy-radius));y<=Math.min(picH-1,Math.ceil(cy+radius));y+=2){const p=contourAtImageY(y);if(!p)continue;const q=Math.abs((y-cy)/(radius||1)),shift=(p.R-p.L)*s/200*(1+Math.cos(Math.PI*q))*.5;const x=side==='left'?p.L-shift:p.R+shift;if(!has){ctx.moveTo(x,y);has=true;}else ctx.lineTo(x,y);}ctx.stroke();}
+}
+function updateEditFeedback(){
+ const s=Number(ui.strength.value);
+ let message,kind='';
+ if(!waist){message='Noch keine automatische Körpererkennung.';}
+ else if(s===0){message='Originalzustand: Regler 0 %, keine Bildänderung.';}
+ else if(!localPlan?.allowed){message='Keine Änderung: Die automatische Maske findet keinen zusammenhängenden sicheren Taillenabschnitt.';kind='warn';}
+ else if(lastChanged===0){message='Keine Änderung: Der Regler hat bisher keinen einzigen Bildpixel verändert.';kind='warn';}
+ else{message=lastChanged.toLocaleString('de-DE')+' Bildpixel tatsächlich verändert. Bildqualität bitte prüfen.';kind='good';}
+ ui.editFeedback.textContent=message;ui.editFeedback.className='edit-feedback '+kind;
+ ui.zoomFeedback.textContent=(compare?'Originalansicht · ':'')+message;
+ ui.zoomStrength.value=ui.strength.value;
+ ui.zoomStrengthValue.textContent=(s>0?'+':'')+s+' %';
+ ui.zoomStrength.disabled=!waist;
+ ui.export.disabled=!(waist&&s!==0&&localPlan?.allowed&&lastChanged>0);
+ ui.zoomExport.disabled=ui.export.disabled;ui.zoomReset.disabled=!waist;
+}
+function queueDraw(){if(queued)return;queued=true;requestAnimationFrame(()=>{
+ queued=false;if(!srcPixels)return;
+ renderWaist();drawOverlays();const s=Number(ui.strength.value);
+ ui.value.textContent=(s>0?'+':'')+s+' %';ui.heightValue.textContent=Number(ui.height.value)<10?'Kurz':Number(ui.height.value)>16?'Breit':'Normal';
+ ui.imageNote.textContent=compare?'Originalfoto':viewMode!=='edit'?'Kontrollansicht der automatischen Maske':s===0?'Keine Veränderung':!localPlan?.allowed?'Sicherheitsstopp · kein Bild verändert':lastChanged===0?'Keine sichtbare Pixeländerung':s<0?'Schmaler · Hintergrundergänzung experimentell':'Breiter · nur erkannter Rumpf';
+ updateEditFeedback();if(zoomOpen)drawZoom();
+});}
+for(const k of ['strength','height'])ui[k].addEventListener('input',()=>{compare=false;viewMode='edit';ui.compare.textContent='Original zeigen';syncModes();updateSafety();queueDraw();});
+function syncSafety(){for(const [id,value] of [['safeStrict','strict'],['safeNormal','normal']]){ui[id].dataset.active=String(safetyMode===value);ui[id].setAttribute('aria-pressed',String(safetyMode===value));}ui.safetyState.textContent=safetyMode==='strict'?'Streng':'Normal';}
+for(const [id,value] of [['safeStrict','strict'],['safeNormal','normal']])ui[id].addEventListener('click',()=>{safetyMode=value;syncSafety();updateSafety();queueDraw();});
+ui.showGuides.addEventListener('change',queueDraw);
+ui.reset.addEventListener('click',()=>{ui.strength.value=0;ui.height.value=12;compare=false;updateSafety();ui.compare.textContent='Original zeigen';viewMode='edit';syncModes();queueDraw();});
+ui.compare.addEventListener('click',()=>{compare=!compare;ui.compare.textContent=compare?'Bearbeitung zeigen':'Original zeigen';queueDraw();});
+function syncModes(){for(const [name,key] of [['modeEdit','edit'],['modeTorso','torso'],['modeProtect','protect'],['modeActive','active']])ui[name].dataset.active=String(viewMode===key);}
+for(const [name,key] of [['modeEdit','edit'],['modeTorso','torso'],['modeProtect','protect'],['modeActive','active']])ui[name].addEventListener('click',()=>{viewMode=key;compare=false;ui.compare.textContent='Original zeigen';syncModes();queueDraw();});
+
+ui.run.addEventListener('click',async()=>{
+ if(working||!srcCanvas)return;working=true;waist=null;localPlan=null;lastChanged=0;compare=false;viewMode='edit';ui.strength.value=0;ui.run.disabled=true;ui.tools.classList.add('hidden');ui.export.disabled=true;queueDraw();let phase='KI-Bibliothek laden',current=epoch;
+ try{
+  status('Bibliothek laden','Transformers.js wird geladen.','',14);
+  const lib=window.__mlkTestLibrary||await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.2');if(current!==epoch)return;
+  const id='faisal-shohag/fashn-human-parser-onnx';phase='Modelldaten laden';status('KI-Modell laden','Quantisiertes Segmentierungsmodell wird vorbereitet.','',37);
+  if(!model)model=await lib.AutoModelForSemanticSegmentation.from_pretrained(id,{dtype:'q8',device:'wasm'});
+  if(current!==epoch)return;
+  phase='Bildprozessor laden';if(!processor)processor=await lib.AutoProcessor.from_pretrained(id);if(current!==epoch)return;
+  phase='KI-Eingabe erzeugen';status('Foto vorbereiten','Eingabedaten werden lokal vorbereitet.','',57);
+  const raw=lib.RawImage.fromCanvas(srcCanvas),inputs=await processor(raw);if(!inputs?.pixel_values)throw Error('Fehlende pixel_values.');if(current!==epoch)return;
+  phase='Körperteile erkennen';status('KI analysiert','Berechnung läuft lokal auf deinem Gerät.','',73);
+  await new Promise(r=>requestAnimationFrame(()=>setTimeout(r,35)));
+  const output=await model({pixel_values:inputs.pixel_values});if(current!==epoch)return;
+  phase='Körperteilmaske berechnen';status('Konturen aufbereiten','Kleine Maskenfehler werden automatisch bereinigt.','',87);
+  parseLogits(output?.logits,model.config?.id2label);
+  const meta=prepareMasks();if(current!==epoch)return;
+  ui.tools.classList.remove('hidden');ui.strength.value=0;ui.height.value=12;viewMode='edit';compare=false;syncModes();syncSafety();updateSafety();queueDraw();
+  // The local risk report is produced by updateSafety(), for the selected height and mode.
+  status('Erkennung abgeschlossen','Die Taille wurde automatisch bestimmt. Bewege den Regler vorsichtig. Bei unsicheren Bereichen bleibt das Original sichtbar.','ok');
+  if(matchMedia('(max-width:699px)').matches&&!zoomOpen)showZoom();
+ }catch(err){console.error('V1.6 Erkennung',err);if(current===epoch){waist=null;ui.tools.classList.add('hidden');ui.export.disabled=true;status('Keine sichere Bearbeitung',`Schritt: ${phase}\n${String(err?.message||err).slice(0,600)}\nEs wird kein Bild verändert.`, 'error');queueDraw();}}
+ finally{working=false;if(current===epoch)ui.run.disabled=!srcCanvas;}
+});
+
+// V1.6 vergrößerte Browser-Vorschau: kein Maskenzeichnen, Regler direkt im Bildmodus.
+function drawZoom(){
+ if(!zoomOpen||!srcPixels)return;
+ const c=ui.zoomCanvas,ctx=c.getContext('2d');
+ if(c.width!==picW||c.height!==picH){c.width=picW;c.height=picH;}
+ ctx.clearRect(0,0,picW,picH);
+ ctx.drawImage(ui.picture,0,0);
+ ctx.drawImage(ui.overlay,0,0);
+ const v=ui.zoomViewport;
+ zoomFitScale=Math.min(Math.max(1,v.clientWidth-16)/picW,Math.max(1,v.clientHeight-16)/picH);
+ c.style.width=Math.round(picW*zoomFitScale*zoomFactor)+'px';
+ c.style.height=Math.round(picH*zoomFitScale*zoomFactor)+'px';
+ ui.zoomLevel.textContent=Math.round(zoomFactor*100)+' %';
+ ui.zoomCompare.textContent=compare?'Bearbeitung':'Original';
+}
+function zoomTo(next){
+ const v=ui.zoomViewport;
+ const oldW=ui.zoomCanvas.getBoundingClientRect().width||1,oldH=ui.zoomCanvas.getBoundingClientRect().height||1;
+ const cx=(v.scrollLeft+v.clientWidth/2)/oldW,cy=(v.scrollTop+v.clientHeight/2)/oldH;
+ zoomFactor=clamp(next,1,5);drawZoom();
+ const newW=ui.zoomCanvas.getBoundingClientRect().width,newH=ui.zoomCanvas.getBoundingClientRect().height;
+ v.scrollLeft=Math.max(0,cx*newW-v.clientWidth/2);
+ v.scrollTop=Math.max(0,cy*newH-v.clientHeight/2);
+}
+function showZoom(){if(!srcPixels)return;
+ zoomOpen=true;zoomFactor=1;ui.zoomDialog.classList.remove('hidden');document.body.classList.add('zoom-open');document.querySelector('main').inert=true;
+ if(viewMode!=='edit'){viewMode='edit';syncModes();queueDraw();}
+ requestAnimationFrame(()=>{drawZoom();ui.zoomViewport.scrollLeft=0;ui.zoomViewport.scrollTop=0;});
+}
+function hideZoom(){zoomOpen=false;document.body.classList.remove('zoom-open');ui.zoomDialog.classList.add('hidden');document.querySelector('main').inert=false;}
+ui.expandPreview.addEventListener('click',showZoom);
+ui.zoomClose.addEventListener('click',hideZoom);
+ui.zoomPlus.addEventListener('click',()=>zoomTo(zoomFactor*1.5));
+ui.zoomMinus.addEventListener('click',()=>zoomTo(zoomFactor/1.5));
+ui.zoomFit.addEventListener('click',()=>zoomTo(1));
+ui.zoomCompare.addEventListener('click',()=>{ui.compare.click();});
+ui.zoomReset.addEventListener('click',()=>ui.reset.click());
+ui.zoomExport.addEventListener('click',()=>ui.export.click());
+ui.zoomStrength.addEventListener('input',()=>{ui.strength.value=ui.zoomStrength.value;ui.strength.dispatchEvent(new Event('input',{bubbles:true}));});
+let touchPinch=0,touchFactor=1;
+ui.zoomViewport.addEventListener('touchstart',e=>{if(e.touches.length===2){touchPinch=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);touchFactor=zoomFactor;}},{passive:true});
+ui.zoomViewport.addEventListener('touchmove',e=>{if(e.touches.length!==2||!touchPinch)return;e.preventDefault();const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);zoomTo(touchFactor*d/touchPinch);},{passive:false});
+ui.zoomViewport.addEventListener('touchend',e=>{if(e.touches.length<2)touchPinch=0;},{passive:true});
+ui.zoomViewport.addEventListener('touchcancel',()=>{touchPinch=0;},{passive:true});
+window.addEventListener('resize',()=>{if(zoomOpen)requestAnimationFrame(drawZoom);});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&zoomOpen)hideZoom();});
+ui.export.addEventListener('click',()=>{
+ if(waist) localPlan=evaluateLocal();
+ if(!srcCanvas||!waist||!localPlan?.allowed||Number(ui.strength.value)===0){status('Kein bearbeitetes Bild','Die Bearbeitung ist nicht freigegeben oder der Regler steht auf 0 %.','error');return;}
+ const oldMode=viewMode,oldCompare=compare;viewMode='edit';compare=false;renderWaist();
+ if(lastChanged===0){viewMode=oldMode;compare=oldCompare;queueDraw();status('Kein Export','Es wurden keine Bildpixel verändert. Deshalb wird kein unverändertes Foto als Bearbeitung exportiert.','error');return;}
+ const c=document.createElement('canvas');c.width=picW;c.height=picH;const ctx=c.getContext('2d');ctx.drawImage(ui.picture,0,0);
+ viewMode=oldMode;compare=oldCompare;queueDraw();
+ c.toBlob(blob=>{if(!blob)return status('Export fehlgeschlagen','Die PNG-Vorschau konnte nicht gespeichert werden.','error');
+ const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='MLK_V1_6_Taillen_Test_'+fileName.replace(/\.[^.]+$/,'')+'.png';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);
+ },'image/png');
+});
+</script></body></html>
